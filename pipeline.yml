@@ -1,0 +1,67 @@
+resource_types:
+- name: bosh-int
+  type: docker-image
+  source:
+    repository: dlapiduz/bosh-int-resource
+    tag: latest
+
+resources:
+- name: concourse-manifest
+  type: bosh-int
+  source:
+    manifest_url: {{concourse_manifest_url}}
+    manifest_params:
+      director_uuid: {{bosh_director_uuid}}
+      azs: {{azs}}
+      web_instances: {{web_instances}}
+      web_static_ips: {{web_static_ips}}
+      atc_username: {{atc_username}}
+      atc_password: {{atc_password}}
+      external_url: {{external_url}}
+      worker_instances: {{worker_instances}}
+
+
+- name: concourse-release
+  type: github-release
+  source:
+    repository: concourse
+    user: concourse
+
+- name: concourse-deployment
+  type: bosh-deployment
+  source:
+    target: {{concourse-deployment-bosh-target}}
+    username: {{concourse-deployment-bosh-username}}
+    password: {{concourse-deployment-bosh-password}}
+    deployment: {{concourse-deployment-bosh-deployment}}
+    ignore_ssl: {{concourse-deployment-bosh-ignore-ssl}}
+
+- name: stemcell
+  type: bosh-io-stemcell
+  source:
+    name: {{stemcell}}
+
+jobs:
+- name: deploy-concourse
+  serial: true
+  plan:
+  - aggregate:
+    - get: concourse-release
+      trigger: false
+      params:
+        globs:
+        - concourse-*.tgz
+        - garden-runc-*.tgz
+    - get: concourse-config
+      trigger: true
+    - get: stemcell
+      trigger: false
+    - get:
+  - put: concourse-deployment
+    params:
+      manifest: {{concourse-config-manifest-location}}
+      releases:
+        - concourse-release/concourse-*.tgz
+        - concourse-release/garden-runc-*.tgz
+      stemcells:
+        - stemcell/*.tgz
