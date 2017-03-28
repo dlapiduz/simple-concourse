@@ -28,6 +28,9 @@ instance_groups:
       external_url: ((external_url))
       postgresql_database: atc
       bind_port: 80
+      tls_bind_port: 443
+      tls_cert: ((atc_cert))
+      tls_key: ((atc_key))
   - name: tsa
     release: concourse
     properties: {}

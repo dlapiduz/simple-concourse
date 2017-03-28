@@ -17,6 +17,8 @@ resources:
       web_static_ips: {{web_static_ips}}
       atc_username: {{atc_username}}
       atc_password: {{atc_password}}
+      atc_cert: {{atc_cert}}
+      atc_key: {{atc_key}}
       external_url: {{external_url}}
       worker_instances: {{worker_instances}}
 
