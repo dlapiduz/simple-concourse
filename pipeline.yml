@@ -26,15 +26,17 @@ resources:
   source:
     repository: concourse
     user: concourse
+    access_token: {{github-token}}
 
 - name: concourse-deployment
   type: bosh-deployment
   source:
     target: {{concourse-deployment-bosh-target}}
-    username: {{concourse-deployment-bosh-username}}
-    password: {{concourse-deployment-bosh-password}}
+    client_id: {{concourse-deployment-bosh-username}}
+    client_secret: {{concourse-deployment-bosh-password}}
     deployment: {{concourse-deployment-bosh-deployment}}
     ignore_ssl: {{concourse-deployment-bosh-ignore-ssl}}
+    ca_cert: {{concourse-deployment-bosh-ca-cert}}
 
 - name: stemcell
   type: bosh-io-stemcell
@@ -52,14 +54,13 @@ jobs:
         globs:
         - concourse-*.tgz
         - garden-runc-*.tgz
-    - get: concourse-config
+    - get: concourse-manifest
       trigger: true
     - get: stemcell
       trigger: false
-    - get:
   - put: concourse-deployment
     params:
-      manifest: {{concourse-config-manifest-location}}
+      manifest: concourse-manifest/output.yml
       releases:
         - concourse-release/concourse-*.tgz
         - concourse-release/garden-runc-*.tgz
