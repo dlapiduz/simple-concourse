@@ -30,7 +30,7 @@ instance_groups:
         client_secret: ((atc_github_client_secret))
         authorize:
           - organization: ((atc_github_org))
-            teams: ((atc_github_teams))
+            teams: [((atc_github_teams))]
       external_url: ((external_url))
       postgresql_database: atc
       bind_port: 80
