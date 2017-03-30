@@ -25,6 +25,12 @@ instance_groups:
     properties:
       basic_auth_password: ((atc_username))
       basic_auth_username: ((atc_password))
+      github_auth:
+        client_id: ((atc_github_client_id))
+        client_secret: ((atc_github_client_secret))
+        authorize:
+          - organization: ((atc_github_org))
+            teams: ((atc_github_teams))
       external_url: ((external_url))
       postgresql_database: atc
       bind_port: 80
