@@ -15,7 +15,8 @@ instance_groups:
   instances: ((web_instances))
   vm_type: small
   stemcell: trusty
-  azs: ((azs))
+  azs:
+  - ((bosh_az))
   networks:
   - name: deployment
     static_ips: ((web_static_ips))
@@ -30,13 +31,14 @@ instance_groups:
         client_secret: ((atc_github_client_secret))
         authorize:
           - organization: ((atc_github_org))
-            teams: ((atc_github_teams))
+            teams:
+              - ((atc_github_teams))
       external_url: ((external_url))
       postgresql_database: atc
       bind_port: 80
       tls_bind_port: 443
-      tls_cert: ((atc_cert))
-      tls_key: ((atc_key))
+      tls_cert: "((atc_cert))"
+      tls_key: "((atc_key))"
   - name: tsa
     release: concourse
     properties: {}
@@ -46,7 +48,7 @@ instance_groups:
   vm_type: small
   stemcell: trusty
   azs:
-  - az1
+  - ((bosh_az))
   networks:
   - name: deployment
   jobs:
@@ -61,7 +63,7 @@ instance_groups:
   vm_type: large.disk
   stemcell: trusty
   azs:
-  - az1
+  - ((bosh_az))
   networks:
   - name: deployment
   jobs:
