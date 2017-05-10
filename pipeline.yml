@@ -12,17 +12,20 @@ resources:
     manifest_url: {{concourse_manifest_url}}
     manifest_params:
       director_uuid: {{bosh_director_uuid}}
-      azs: {{azs}}
-      web_instances: {{web_instances}}
+      bosh_az: {{bosh_az}}
+      web_instances: 1
       web_static_ips: {{web_static_ips}}
       atc_username: {{atc_username}}
       atc_password: {{atc_password}}
       atc_cert: {{atc_cert}}
       atc_key: {{atc_key}}
       external_url: {{external_url}}
-      worker_instances: {{worker_instances}}
-
-
+      worker_instances: 2
+      atc_github_client_id: {{atc_github_client_id}}
+      atc_github_client_secret: {{atc_github_client_secret}}
+      atc_github_org: {{atc_github_org}}
+      atc_github_teams: {{atc_github_teams}}
+      r: 1
 - name: concourse-release
   type: github-release
   source:
@@ -44,12 +47,19 @@ resources:
   type: bosh-io-stemcell
   source:
     name: {{stemcell}}
-
+- name: after-midnight
+  type: time
+  source:
+    start: 12:00 AM
+    stop: 1:00 AM
+    location: America/Los_Angeles
 jobs:
 - name: deploy-concourse
   serial: true
   plan:
   - aggregate:
+    - get: after-midnight
+      trigger: true
     - get: concourse-release
       trigger: false
       params:
