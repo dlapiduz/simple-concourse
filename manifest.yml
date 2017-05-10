@@ -13,7 +13,7 @@ stemcells:
 instance_groups:
 - name: web
   instances: ((web_instances))
-  vm_type: small
+  vm_type: ((web_vm_type))
   stemcell: trusty
   azs:
   - ((bosh_az))
@@ -45,7 +45,7 @@ instance_groups:
 - name: db
   persistent_disk_type: '76800'
   instances: 1
-  vm_type: small
+  vm_type: ((db_vm_type))
   stemcell: trusty
   azs:
   - ((bosh_az))
@@ -60,7 +60,7 @@ instance_groups:
         role: atc
 - name: worker
   instances: ((worker_instances))
-  vm_type: large.disk
+  vm_type: ((worker_vm_type))
   stemcell: trusty
   azs:
   - ((bosh_az))
