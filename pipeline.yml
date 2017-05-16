@@ -12,7 +12,8 @@ resources:
     manifest_url: {{concourse_manifest_url}}
     manifest_params:
       director_uuid: {{bosh_director_uuid}}
-      bosh_az: {{bosh_az}}
+      bosh_az1: {{bosh_az1}}
+      bosh_az2: {{bosh_az2}}
       web_instances: 1
       web_static_ips: {{web_static_ips}}
       atc_username: {{atc_username}}
@@ -20,12 +21,14 @@ resources:
       atc_cert: {{atc_cert}}
       atc_key: {{atc_key}}
       external_url: {{external_url}}
-      worker_instances: 2
+      worker_instances: 3
       atc_github_client_id: {{atc_github_client_id}}
       atc_github_client_secret: {{atc_github_client_secret}}
       atc_github_org: {{atc_github_org}}
       atc_github_teams: {{atc_github_teams}}
-      r: 1
+      worker_vm_type: xlarge.disk
+      web_vm_type: small
+      db_vm_type: small
 - name: concourse-release
   type: github-release
   source:

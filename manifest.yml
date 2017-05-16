@@ -16,7 +16,8 @@ instance_groups:
   vm_type: ((web_vm_type))
   stemcell: trusty
   azs:
-  - ((bosh_az))
+  - ((bosh_az1))
+  - ((bosh_az2))
   networks:
   - name: deployment
     static_ips: ((web_static_ips))
@@ -48,7 +49,8 @@ instance_groups:
   vm_type: ((db_vm_type))
   stemcell: trusty
   azs:
-  - ((bosh_az))
+  - ((bosh_az1))
+  - ((bosh_az2))
   networks:
   - name: deployment
   jobs:
@@ -63,7 +65,8 @@ instance_groups:
   vm_type: ((worker_vm_type))
   stemcell: trusty
   azs:
-  - ((bosh_az))
+  - ((bosh_az1))
+  - ((bosh_az2))
   networks:
   - name: deployment
   jobs:
