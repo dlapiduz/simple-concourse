@@ -25,7 +25,8 @@ resources:
       atc_github_client_id: {{atc_github_client_id}}
       atc_github_client_secret: {{atc_github_client_secret}}
       atc_github_org: {{atc_github_org}}
-      atc_github_teams: {{atc_github_teams}}
+      atc_github_team1: {{atc_github_team1}}
+      atc_github_team2: {{atc_github_team2}}
       worker_vm_type: xlarge.disk
       web_vm_type: small
       db_vm_type: small
