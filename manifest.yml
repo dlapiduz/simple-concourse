@@ -35,6 +35,7 @@ instance_groups:
             teams:
               - ((atc_github_team1))
               - ((atc_github_team2))
+              - ((atc_github_team3))
       external_url: ((external_url))
       postgresql_database: atc
       bind_port: 80

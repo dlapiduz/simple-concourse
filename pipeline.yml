@@ -27,7 +27,8 @@ resources:
       atc_github_org: {{atc_github_org}}
       atc_github_team1: {{atc_github_team1}}
       atc_github_team2: {{atc_github_team2}}
-      worker_vm_type: xlarge.disk
+      atc_github_team3: {{atc_github_team3}}
+      worker_vm_type: 2xlarge.disk
       web_vm_type: small
       db_vm_type: small
 - name: concourse-release
